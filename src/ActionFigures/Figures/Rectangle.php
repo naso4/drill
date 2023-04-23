@@ -15,7 +15,7 @@ class Rectangle extends ActionFigure
     $this->height = $height;
   }
 
-  public function getSquare() : int
+  public function getArea() : float
   {
     return $this->width * $this->height;
   }

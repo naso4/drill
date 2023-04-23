@@ -5,10 +5,12 @@ namespace Drill\ActionFigures\Figures;
 use Drill\ActionFigures\Actions\Movable;
 use Drill\ActionFigures\Actions\Position;
 use Drill\ActionFigures\Actions\Rotatable;
+use Drill\ActionFigures\Figures\Exception\UnacceptableAngleException;
 
 abstract class ActionFigure implements Figure, Movable, Rotatable
 {
 
+  protected int $rotationAngleDegrees;
   protected Position $position;
 
   public function move(int $axisX, int $axisY): ActionFigure
@@ -17,9 +19,20 @@ abstract class ActionFigure implements Figure, Movable, Rotatable
     return $this;
   }
 
-  public function rotate(int $degrees): Rotatable
+  /**
+   * @param int $degrees
+   * @return Rotatable
+   * @throws UnacceptableAngleException
+   */
+  public function rotate(int $degrees): ActionFigure
   {
-    // TODO: Implement rotate() method.
+    if ($degrees < -360
+      || $degrees > 360
+    ) {
+      throw new UnacceptableAngleException('Rotation angle unacceptable');
+    }
+    $this->rotationAngleDegrees += $degrees;
+    return $this;
   }
 
   public function getPosition(): Position

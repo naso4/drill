@@ -4,5 +4,5 @@ namespace Drill\ActionFigures\Figures;
 
 interface Figure
 {
-  public function getSquare() : int;
+  public function getArea() : float;
 }
